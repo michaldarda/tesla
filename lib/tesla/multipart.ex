@@ -146,7 +146,7 @@ defmodule Tesla.Multipart do
         boundary
       ) do
     part_headers = Enum.map(part_headers, fn {k, v} -> "#{k}: #{v}\r\n" end)
-    part_headers = part_headers ++ [part_headers_for_disposition(dispositions)]
+    part_headers = [part_headers_for_disposition(dispositions)] ++ part_headers
 
     enum_body =
       case body do
@@ -173,7 +173,7 @@ defmodule Tesla.Multipart do
       |> Enum.map(fn {k, v} -> "#{k}=\"#{v}\"" end)
       |> Enum.join("; ")
 
-    ["content-disposition: form-data; #{ds}\r\n"]
+    ["Content-Disposition: form-data; #{ds}\r\n"]
   end
 
   @spec unique_string() :: String.t()
