@@ -155,7 +155,7 @@ defmodule Tesla.Multipart do
       end
 
     Stream.concat([
-      ["#{boundary}\r\n"],
+      ["--#{boundary}\r\n"],
       part_headers,
       ["\r\n"],
       enum_body,
