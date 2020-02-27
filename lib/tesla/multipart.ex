@@ -136,7 +136,7 @@ defmodule Tesla.Multipart do
   @spec body(t) :: part_stream
   def body(%__MODULE__{boundary: boundary, parts: parts}) do
     part_streams = Enum.map(parts, &part_as_stream(&1, boundary))
-    Stream.concat(part_streams ++ [["#{boundary}--\r\n"]])
+    Stream.concat(part_streams ++ [["--#{boundary}--\r\n"]])
   end
 
   @doc false
@@ -155,7 +155,7 @@ defmodule Tesla.Multipart do
       end
 
     Stream.concat([
-      ["--#{boundary}--\r\n"],
+      ["#{boundary}\r\n"],
       part_headers,
       ["\r\n"],
       enum_body,
